@@ -3,12 +3,12 @@ package com.marvel.charecters.presentation.character_details
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import com.marvel.charecters.R
 import com.marvel.charecters.base.BaseActivity
 import com.marvel.charecters.framework.api.Character
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_character_details.*
+import kotlinx.android.synthetic.main.activity_character_details.toolbar
 import javax.inject.Inject
 
 class CharacterDetailsActivity : BaseActivity(),CharacterDetailsContract.View {
@@ -29,7 +29,14 @@ class CharacterDetailsActivity : BaseActivity(),CharacterDetailsContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_details)
+        initToolbar()
         presenter.onCreate(intent.getParcelableExtra(CHARACTER))
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     override fun initLayout(character: Character?, hasWikiPage : Boolean) {

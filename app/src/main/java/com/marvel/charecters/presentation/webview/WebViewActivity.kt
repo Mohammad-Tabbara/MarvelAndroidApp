@@ -35,7 +35,14 @@ class WebViewActivity : BaseActivity(), WebViewContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
+        initToolbar()
         presenter.onCreate(intent.getStringExtra(WEB_PAGE))
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     override fun onBackPressed() {
@@ -56,7 +63,7 @@ class WebViewActivity : BaseActivity(), WebViewContract.View {
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
-                titleBar.title = URL(url).authority
+                toolbar.title = URL(url).authority
             }
         }
 
