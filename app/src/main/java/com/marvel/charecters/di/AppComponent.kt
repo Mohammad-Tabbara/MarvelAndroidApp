@@ -6,10 +6,11 @@ import dagger.Component
 import dagger.BindsInstance
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ActivityBuilder::class,AndroidInjectionModule::class,AppModule::class])
+@Component(modules = [ActivityBuilder::class,AndroidSupportInjectionModule::class,AppModule::class])
 interface AppComponent: AndroidInjector<MarvellApplication> {
 
     @Component.Builder
