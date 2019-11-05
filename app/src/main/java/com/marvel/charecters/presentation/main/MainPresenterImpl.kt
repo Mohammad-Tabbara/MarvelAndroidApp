@@ -11,16 +11,22 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
     private var marvelCharacters: MutableList<Character> = mutableListOf()
 
     override fun onCreate() {
+        view.initLayout()
+    }
+
+    override fun fetchCharacters() {
+        view.startFetching()
         interactor.getMarvelCharacters(0, object : SingleObserver<Wrapper>{
             override fun onSubscribe(d: Disposable) {}
 
             override fun onSuccess(wrapper: Wrapper) {
                 marvelCharacters = wrapper.data.results.toMutableList()
-                view.initLayout(marvelCharacters)
+                view.displayCharacters(marvelCharacters)
             }
 
             override fun onError(e: Throwable) {
-               logger.e(e)
+                view.noInternetConnection()
+                logger.e(e)
             }
         })
     }
@@ -31,7 +37,7 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
 
             override fun onSuccess(wrapper: Wrapper) {
                 marvelCharacters.addAll(wrapper.data.results)
-                view.updateLayout(wrapper.data.results)
+                view.addCharacters(wrapper.data.results)
             }
 
             override fun onError(e: Throwable) {
