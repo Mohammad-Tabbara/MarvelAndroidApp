@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.character_details.WebViewActivity">
+    tools:context=".presentation.webview.WebViewActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -107,7 +107,8 @@
         android:layout_margin="@dimen/padding"
         android:layout_gravity="bottom|end"
         android:visibility="gone"
-        android:src="@drawable/globe"
+        android:src="@drawable/web"
+        android:tint="@color/white"
         tools:visibility="visible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

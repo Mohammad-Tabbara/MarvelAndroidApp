@@ -6,13 +6,17 @@ import io.reactivex.SingleObserver
 
 interface MainContract {
     interface View{
-        fun initLayout(characters: List<Character>)
-        fun updateLayout(marvelCharacters: List<Character>)
+        fun initLayout()
+        fun displayCharacters(characters: List<Character>)
+        fun startFetching()
+        fun addCharacters(marvelCharacters: List<Character>)
         fun navigateToCharacterDetails(character: Character)
         fun loadMoreFailed()
+        fun noInternetConnection()
     }
     interface Presenter{
         fun onCreate()
+        fun fetchCharacters()
         fun marvalCharacterClicked(position: Int)
         fun loadMore(offset: Int)
     }
