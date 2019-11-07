@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.webkit.WebChromeClient
 
@@ -45,6 +46,10 @@ class WebViewActivity : BaseActivity(), WebViewContract.View {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onBackPressed() {
         if(webView.canGoBack()){
             presenter.webViewCanGoBack()
@@ -54,7 +59,7 @@ class WebViewActivity : BaseActivity(), WebViewContract.View {
 
     }
 
-    override fun initWebView(url: String) {
+    override fun initLayout(url: String) {
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)

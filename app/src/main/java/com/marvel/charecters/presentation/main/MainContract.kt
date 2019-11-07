@@ -7,9 +7,9 @@ import io.reactivex.SingleObserver
 interface MainContract {
     interface View{
         fun initLayout()
-        fun displayCharacters(characters: List<Character>)
+        fun displayCharacters(characters: MutableList<Character>)
         fun startFetching()
-        fun addCharacters(marvelCharacters: List<Character>)
+        fun updateCharacterList()
         fun navigateToCharacterDetails(character: Character)
         fun loadMoreFailed()
         fun noInternetConnection()
@@ -17,10 +17,12 @@ interface MainContract {
     interface Presenter{
         fun onCreate()
         fun fetchCharacters()
+        fun searchCharacters(searchText: String)
         fun marvalCharacterClicked(position: Int)
         fun loadMore(offset: Int)
+
     }
     interface Interactor{
-        fun getMarvelCharacters(page: Int, listener: SingleObserver<Wrapper>)
+        fun getMarvelCharacters(offset: Int, nameStartWith: String?, listener: SingleObserver<Wrapper>)
     }
 }

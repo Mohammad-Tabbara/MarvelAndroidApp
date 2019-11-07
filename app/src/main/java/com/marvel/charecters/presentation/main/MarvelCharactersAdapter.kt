@@ -60,10 +60,12 @@ class MarvelCharactersAdapter(private val characters: MutableList<Character>, pr
         recyclerView.addOnScrollListener(paginationListener)
     }
 
-    fun updateData(characters: List<Character>) {
+    fun updateData() {
         paginationListener.isLoading = false
-        this.characters.addAll(characters)
-        notifyItemRangeInserted(itemCount,characters.size)
+        notifyItemRemoved(characters.size)
+        if(itemCount < characters.size) {
+            notifyItemRangeInserted(itemCount, characters.size)
+        }
     }
 
     fun loadMoreFailed() {

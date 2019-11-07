@@ -6,7 +6,7 @@ import io.reactivex.SingleObserver
 
 interface WebViewContract {
     interface View{
-        fun initWebView(url: String)
+        fun initLayout(url: String)
         fun webViewBack()
     }
     interface Presenter{

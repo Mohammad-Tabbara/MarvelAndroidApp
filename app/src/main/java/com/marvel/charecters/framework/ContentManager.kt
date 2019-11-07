@@ -12,12 +12,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-class  ContentManager(val service: MarvelService, val apiUtils: ApiUtils): IContentManager {
-    override fun getMarvellCharectersByPage(page: Int, listener: SingleObserver<Wrapper>) {
+class  ContentManager(private val service: MarvelService, private val apiUtils: ApiUtils): IContentManager {
+    override fun getMarvelCharacters(offset: Int, nameStartWith: String?, listener: SingleObserver<Wrapper>) {
         val currentTimeInMillis = apiUtils.getCurrentTimeInMillis()
         subscribe(
-            service.listCharacters(20,
-                page,
+            service.getMarvelCharactersByPage(20,
+                offset,
+                nameStartWith,
                 BuildConfig.PUBLIC_KEY,
                 currentTimeInMillis,
                 apiUtils.getMd5Hash(currentTimeInMillis.toString() + Constants.PRIVATE_KEY + Constants.PUBLIC_KEY)),
