@@ -6,9 +6,10 @@ import retrofit2.http.Query
 
 interface MarvelService {
     @GET("/v1/public/characters")
-    fun listCharacters(@Query("limit") limit: Int, @Query("offset") offset: Int,
-                       @Query("apikey") apiKey: String,
-                       @Query("ts") ts: Long,
-                       @Query("hash") hash: String): Single<Wrapper>
-
+    fun getMarvelCharactersByPage(@Query("limit") limit: Int,
+                                  @Query("offset") offset: Int,
+                                  @Query("nameStartsWith") nameStartsWith: String?,
+                                  @Query("apikey") apiKey: String,
+                                  @Query("ts") ts: Long,
+                                  @Query("hash") hash: String): Single<Wrapper>
 }

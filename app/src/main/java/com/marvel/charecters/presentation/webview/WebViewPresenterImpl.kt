@@ -9,7 +9,7 @@ class WebViewPresenterImpl(val view: WebViewContract.View, val logger: ILogger):
     override fun onCreate(url: String?) {
         this.url = url
         url?.let {
-            view.initWebView(it)
+            view.initLayout(it)
         }
     }
 
