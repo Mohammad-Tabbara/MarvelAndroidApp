@@ -15,7 +15,6 @@
     </style>
 
     <style name="ToolbarTheme.Normal"  parent="ToolbarTheme">
-        <item name="android:background">@color/colorPrimary</item>
         <item name="android:animateLayoutChanges">true</item>
     </style>
 </resources>

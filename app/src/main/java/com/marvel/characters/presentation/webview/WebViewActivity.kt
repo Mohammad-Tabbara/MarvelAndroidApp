@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.webkit.WebChromeClient
 
@@ -24,7 +25,6 @@ class WebViewActivity : BaseActivity(), WebViewContract.View {
 
     companion object{
         const val WEB_PAGE: String = "URL"
-        const val requestId: Long = 101
         fun getInstance(context: Context, url: String?): Intent {
             val intent = Intent(context, WebViewActivity::class.java)
             intent.putExtra(WEB_PAGE,url)
