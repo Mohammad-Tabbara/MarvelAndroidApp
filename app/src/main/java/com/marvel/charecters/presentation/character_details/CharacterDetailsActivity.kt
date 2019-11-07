@@ -3,6 +3,7 @@ package com.marvel.charecters.presentation.character_details
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.content.res.ResourcesCompat
 import com.marvel.charecters.R
 import com.marvel.charecters.base.BaseActivity
 import com.marvel.charecters.framework.api.Character
@@ -37,6 +38,10 @@ class CharacterDetailsActivity : BaseActivity(),CharacterDetailsContract.View {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        val typeface = ResourcesCompat.getFont(this, R.font.marvel)
+        collapsingToolbar.setCollapsedTitleTypeface(typeface)
+        collapsingToolbar.setExpandedTitleTypeface(typeface)
     }
 
     override fun initLayout(character: Character?, hasWikiPage : Boolean) {
