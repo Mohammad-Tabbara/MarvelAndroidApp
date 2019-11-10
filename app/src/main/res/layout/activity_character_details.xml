@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.character_details.WebViewActivity">
+    tools:context=".presentation.webview.WebViewActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -18,8 +18,8 @@
             android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
+            android:theme="@style/ToolbarTheme"
+            app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,10 +41,10 @@
                     tools:src="@tools:sample/avatars" />
 
                 <ImageView
-                    android:id="@+id/backgroundFilter"
+                    android:id="@+id/overLay"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:src="@drawable/details_toolbar_background"
+                    android:src="@drawable/dim_overlay"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -55,8 +55,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="none"
-                app:title="@string/app_name" />
+                app:layout_collapseMode="pin"
+                tools:title="@tools:sample/full_names" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -72,29 +72,15 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/characterName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/marvel"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@tools:sample/full_names" />
-
-            <TextView
                 android:id="@+id/characterDesc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:fontFamily="@font/marvel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/characterName"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/lorem/random" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,7 +93,8 @@
         android:layout_margin="@dimen/padding"
         android:layout_gravity="bottom|end"
         android:visibility="gone"
-        android:src="@drawable/globe"
+        android:src="@drawable/web"
+        android:tint="@color/white"
         tools:visibility="visible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

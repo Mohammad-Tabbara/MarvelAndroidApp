@@ -8,10 +8,11 @@
     tools:context=".presentation.webview.WebViewActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/titleBar"
+        android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:theme="@style/ToolbarTheme.Normal"
+        android:background="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +24,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleBar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <WebView
         android:id="@+id/webView"
