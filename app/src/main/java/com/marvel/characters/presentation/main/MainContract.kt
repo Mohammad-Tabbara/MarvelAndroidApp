@@ -1,7 +1,7 @@
 package com.marvel.characters.presentation.main
 
-import com.marvel.characters.framework.api.Character
-import com.marvel.characters.framework.api.Wrapper
+import com.marvel.characters.presentation._common.models.Character
+import com.marvel.characters.framework.api.models.ApiWrapper
 import io.reactivex.SingleObserver
 
 interface MainContract {
@@ -23,6 +23,6 @@ interface MainContract {
 
     }
     interface Interactor{
-        fun getMarvelCharacters(offset: Int, nameStartWith: String?, listener: SingleObserver<Wrapper>)
+        fun getMarvelCharacters(offset: Int, nameStartWith: String?, listener: SingleObserver<ApiWrapper>)
     }
 }

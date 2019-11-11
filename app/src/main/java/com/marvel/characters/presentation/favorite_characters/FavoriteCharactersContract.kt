@@ -1,7 +1,10 @@
 package com.marvel.characters.presentation.favorite_characters
 
-import android.database.Observable
-import com.marvel.characters.framework.api.Character
+import com.marvel.characters.framework.persistance.models.FavoriteCharacter
+import io.reactivex.Completable
+import io.reactivex.CompletableObserver
+import io.reactivex.Observer
+import io.reactivex.Single
 
 interface FavoriteCharactersContract{
     interface View{
@@ -11,6 +14,6 @@ interface FavoriteCharactersContract{
         fun onCreate()
     }
     interface Interactor{
-        fun getFavoriteCharacters(listener: Observable<List<Character>>)
+        fun getFavoriteCharacters(listener: Observer<List<FavoriteCharacter>>)
     }
 }

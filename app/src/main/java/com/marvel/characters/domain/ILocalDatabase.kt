@@ -1,7 +1,7 @@
 package com.marvel.characters.domain
 
+import com.marvel.characters.framework.persistance.dao.FavoriteCharactersDao
+
 interface ILocalDatabase {
-    fun addCharacterToFavorites()
-    fun removeCharacterFromFavorites()
-    fun getFavoriteCharacters()
+    fun getFavoriteCharactersDao(): FavoriteCharactersDao
 }

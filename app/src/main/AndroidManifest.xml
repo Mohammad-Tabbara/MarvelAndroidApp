@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".presentation.favorite_characters.FavoriteCharactersActivity"></activity>
+        <activity android:name=".presentation.favorite_characters.FavoriteCharactersActivity"/>
 
         <meta-data
             android:name="android.webkit.WebView.EnableSafeBrowsing"

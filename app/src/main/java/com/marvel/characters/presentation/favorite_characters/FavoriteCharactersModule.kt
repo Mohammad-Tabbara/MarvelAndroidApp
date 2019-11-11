@@ -16,11 +16,11 @@ abstract class FavoriteCharactersModule {
     companion object{
         @Provides
         @JvmStatic
-        fun providePresenter(view: FavoriteCharactersContract.View,interactor: FavoriteCharactersInteractor,logger: ILogger) = FavoriteCharactersPresenterImpl(view,interactor,logger)
+        fun bindPresenter(view: FavoriteCharactersContract.View,interactor: FavoriteCharactersContract.Interactor,logger: ILogger): FavoriteCharactersContract.Presenter = FavoriteCharactersPresenterImpl(view,interactor,logger)
 
         @Provides
         @JvmStatic
-        fun provideInteractor(contentManager: IContentManager) = FavoriteCharactersInteractor(contentManager)
+        fun bindInteractor(contentManager: IContentManager): FavoriteCharactersContract.Interactor = FavoriteCharactersInteractor(contentManager)
 
     }
 }

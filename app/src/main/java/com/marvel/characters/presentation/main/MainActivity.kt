@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.marvel.characters.R
 import com.marvel.characters.base.BaseActivity
 import com.marvel.characters.domain.ILogger
-import com.marvel.characters.framework.api.Character
+import com.marvel.characters.presentation._common.models.Character
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.no_network_connection.*

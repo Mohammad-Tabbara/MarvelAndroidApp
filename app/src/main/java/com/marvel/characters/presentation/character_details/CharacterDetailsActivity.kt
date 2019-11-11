@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.core.content.res.ResourcesCompat
 import com.marvel.characters.R
 import com.marvel.characters.base.BaseActivity
-import com.marvel.characters.framework.api.Character
+import com.marvel.characters.presentation._common.models.Character
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_character_details.*
 import kotlinx.android.synthetic.main.activity_character_details.toolbar
@@ -44,7 +44,7 @@ class CharacterDetailsActivity : BaseActivity(),CharacterDetailsContract.View {
         collapsingToolbar.setExpandedTitleTypeface(typeface)
 
         character?.let {
-            Picasso.get().load(it.thumbnail?.getFullPath()).into(characterImage)
+            Picasso.get().load(it.thumbnail).into(characterImage)
             characterDesc.text = it.description
         }
         if(hasWikiPage) openWiki.show()
