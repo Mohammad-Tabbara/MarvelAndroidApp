@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "FavoriteCharacters")
 data class FavoriteCharacter(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val id: Int,
     val name: String?,
     val description: String?,
     val wikiUrl: String?,

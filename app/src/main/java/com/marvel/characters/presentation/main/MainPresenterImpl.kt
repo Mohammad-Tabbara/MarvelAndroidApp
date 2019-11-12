@@ -2,6 +2,7 @@ package com.marvel.characters.presentation.main
 
 import com.marvel.characters.domain.ILogger
 import com.marvel.characters.framework.api.models.ApiWrapper
+import com.marvel.characters.framework.rxJava.SingleListener
 import com.marvel.characters.presentation._common.models.Character
 import com.marvel.characters.presentation._common.models.Wrapper
 import com.marvel.characters.presentation._common.models.toWrapper
@@ -19,8 +20,7 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
 
     override fun fetchCharacters() {
         view.startFetching()
-        interactor.getMarvelCharacters(0,null, object : SingleObserver<ApiWrapper>{
-            override fun onSubscribe(d: Disposable) {}
+        interactor.getMarvelCharacters(0,null, object : SingleListener<ApiWrapper>(){
 
             override fun onSuccess(apiWrapper: ApiWrapper) {
                 val wrapper: Wrapper = apiWrapper.toWrapper()
@@ -38,8 +38,7 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
     override fun searchCharacters(searchText: String) {
         characterNameStartWith = if(searchText.isNotEmpty()) searchText else null
         view.startFetching()
-        interactor.getMarvelCharacters(0,characterNameStartWith, object : SingleObserver<ApiWrapper>{
-            override fun onSubscribe(d: Disposable) {}
+        interactor.getMarvelCharacters(0,characterNameStartWith, object : SingleListener<ApiWrapper>(){
 
             override fun onSuccess(apiWrapper: ApiWrapper) {
                 val wrapper: Wrapper = apiWrapper.toWrapper()
@@ -55,8 +54,7 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
     }
 
     override fun loadMore(offset: Int) {
-        interactor.getMarvelCharacters(offset, characterNameStartWith, object : SingleObserver<ApiWrapper>{
-            override fun onSubscribe(d: Disposable) {}
+        interactor.getMarvelCharacters(offset, characterNameStartWith, object : SingleListener<ApiWrapper>(){
 
             override fun onSuccess(apiWrapper: ApiWrapper) {
                 val wrapper: Wrapper = apiWrapper.toWrapper()
@@ -75,5 +73,9 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
 
     override fun marvalCharacterClicked(position: Int) {
         view.navigateToCharacterDetails(marvelCharacters[position])
+    }
+
+    override fun openFavorites() {
+        view.navigateToFavoriteCharactersScreen()
     }
 }

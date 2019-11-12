@@ -1,4 +1,4 @@
-package com.marvel.characters.presentation.main
+package com.marvel.characters.presentation._common.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -81,7 +81,7 @@ class MarvelCharactersAdapter(private val characters: MutableList<Character>, pr
     inner class ProgressHolder(itemView:View): RecyclerView.ViewHolder(itemView)
 
     interface MarvelAdapterListener{
-        fun loadMore(offset: Int)
+        fun loadMore(offset: Int){}
         fun marvalCharacterClick(position: Int)
     }
 }

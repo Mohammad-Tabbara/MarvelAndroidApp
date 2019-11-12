@@ -3,6 +3,8 @@ package com.marvel.characters.presentation.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.marvel.characters.R
@@ -15,9 +17,7 @@ import kotlinx.android.synthetic.main.no_network_connection.*
 import javax.inject.Inject
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.iterator
-
-
-
+import com.marvel.characters.presentation._common.adapters.MarvelCharactersAdapter
 
 
 class MainActivity : BaseActivity(), MainContract.View,
@@ -32,19 +32,14 @@ class MainActivity : BaseActivity(), MainContract.View,
 
     var adapter : MarvelCharactersAdapter? = null
 
-    @Inject
-    lateinit var logger: ILogger
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         presenter.onCreate()
     }
 
-
-
-    override fun initLayout() {
-        toolbar.inflateMenu(R.menu.main)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main,menu)
         for(item in toolbar.menu.iterator()){
             when(item.itemId){
                 R.id.action_search -> {
@@ -68,13 +63,32 @@ class MainActivity : BaseActivity(), MainContract.View,
                 }
             }
         }
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.open_favorites -> {
+                presenter.openFavorites()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+
+    override fun initLayout() {
+        setSupportActionBar(toolbar)
 
         presenter.fetchCharacters()
         retryButton.setOnClickListener {
             presenter.fetchCharacters()
         }
 
-        adapter = MarvelCharactersAdapter(mutableListOf(),this)
+        adapter = MarvelCharactersAdapter(
+            mutableListOf(),
+            this
+        )
         charactersList.adapter = adapter
         charactersList.layoutManager = LinearLayoutManager(this)
     }
@@ -86,7 +100,10 @@ class MainActivity : BaseActivity(), MainContract.View,
     }
 
     override fun displayCharacters(characters: MutableList<Character>) {
-        adapter = MarvelCharactersAdapter(characters,this)
+        adapter = MarvelCharactersAdapter(
+            characters,
+            this
+        )
         charactersList.adapter = adapter
         charactersList.layoutManager = LinearLayoutManager(this)
         noNetwork.visibility = View.GONE
@@ -118,6 +135,10 @@ class MainActivity : BaseActivity(), MainContract.View,
 
     override fun navigateToCharacterDetails(character: Character) {
         navigator.navigateToCharacterDetailsScreen(this, character,false)
+    }
+
+    override fun navigateToFavoriteCharactersScreen() {
+        navigator.navigateToFavoriteCharacters(this,false)
     }
 
 }

@@ -5,8 +5,9 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 
-data class Character(val name: String?, val description: String?, val url: String?, val thumbnail: String?) : Parcelable {
+data class Character(val id: Int,val name: String?, val description: String?, val url: String?, val thumbnail: String?) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -14,6 +15,7 @@ data class Character(val name: String?, val description: String?, val url: Strin
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
         parcel.writeString(name)
         parcel.writeString(description)
         parcel.writeString(url)
