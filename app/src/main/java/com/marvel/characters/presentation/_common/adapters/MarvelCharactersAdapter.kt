@@ -1,4 +1,4 @@
-package com.marvel.characters.presentation.main
+package com.marvel.characters.presentation._common.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.marvel.characters.R
-import com.marvel.characters.framework.api.Character
+import com.marvel.characters.presentation._common.models.Character
 import com.marvel.characters.presentation._common.custom.PaginationListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.character_item.view.*
@@ -47,7 +47,7 @@ class MarvelCharactersAdapter(private val characters: MutableList<Character>, pr
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is CharacterHolder) {
             holder.characterName.text = characters[position].name
-            Picasso.get().load(characters[position].thumbnail?.getFullPath())
+            Picasso.get().load(characters[position].thumbnail)
                 .into(holder.characterImage)
             holder.rootLayout.setOnClickListener {
                 marvelAdapterListener.marvalCharacterClick(position)
@@ -81,7 +81,7 @@ class MarvelCharactersAdapter(private val characters: MutableList<Character>, pr
     inner class ProgressHolder(itemView:View): RecyclerView.ViewHolder(itemView)
 
     interface MarvelAdapterListener{
-        fun loadMore(offset: Int)
+        fun loadMore(offset: Int){}
         fun marvalCharacterClick(position: Int)
     }
 }

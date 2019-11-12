@@ -16,11 +16,11 @@ abstract class MainActivityModule {
     companion object{
         @Provides
         @JvmStatic
-        fun bindPresenter(view: MainContract.View,interator: MainContract.Interactor, logger: ILogger): MainContract.Presenter = MainPresenterImpl(view,interator,logger)
+        fun providePresenter(view: MainContract.View, interator: MainContract.Interactor, logger: ILogger): MainContract.Presenter = MainPresenterImpl(view,interator,logger)
 
         @Provides
         @JvmStatic
-        fun bindInteractor(contentManager: IContentManager): MainContract.Interactor = MainInteractor(contentManager)
+        fun provideInteractor(contentManager: IContentManager): MainContract.Interactor = MainInteractor(contentManager)
     }
 
 }

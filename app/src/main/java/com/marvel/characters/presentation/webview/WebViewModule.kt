@@ -15,7 +15,7 @@ abstract class WebViewModule {
     companion object{
         @Provides
         @JvmStatic
-        fun bindPresenter(view: WebViewContract.View, logger: ILogger): WebViewContract.Presenter = WebViewPresenterImpl(view,logger)
+        fun providePresenter(view: WebViewContract.View, logger: ILogger): WebViewContract.Presenter = WebViewPresenterImpl(view,logger)
     }
 
 }

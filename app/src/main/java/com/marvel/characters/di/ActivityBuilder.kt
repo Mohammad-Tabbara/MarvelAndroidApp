@@ -2,6 +2,8 @@ package com.marvel.characters.di
 
 import com.marvel.characters.presentation.character_details.CharacterDetailsActivity
 import com.marvel.characters.presentation.character_details.CharacterDetailsModule
+import com.marvel.characters.presentation.favorite_characters.FavoriteCharactersActivity
+import com.marvel.characters.presentation.favorite_characters.FavoriteCharactersModule
 import com.marvel.characters.presentation.webview.WebViewActivity
 import com.marvel.characters.presentation.webview.WebViewModule
 import com.marvel.characters.presentation.main.MainActivity
@@ -21,4 +23,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [WebViewModule::class])
     abstract fun bindWebViewActivity(): WebViewActivity
+
+    @ContributesAndroidInjector(modules = [FavoriteCharactersModule::class])
+    abstract fun bindFavoriteCharactersActivity(): FavoriteCharactersActivity
 }

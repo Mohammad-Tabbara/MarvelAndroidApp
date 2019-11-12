@@ -1,8 +1,8 @@
 package com.marvel.characters.presentation.main
 
-import com.marvel.characters.framework.api.Character
-import com.marvel.characters.framework.api.Wrapper
-import io.reactivex.SingleObserver
+import com.marvel.characters.presentation._common.models.Character
+import com.marvel.characters.framework.api.models.ApiWrapper
+import com.marvel.characters.framework.rxJava.SingleListener
 
 interface MainContract {
     interface View{
@@ -13,6 +13,7 @@ interface MainContract {
         fun navigateToCharacterDetails(character: Character)
         fun loadMoreFailed()
         fun noInternetConnection()
+        fun navigateToFavoriteCharactersScreen()
     }
     interface Presenter{
         fun onCreate()
@@ -20,9 +21,10 @@ interface MainContract {
         fun searchCharacters(searchText: String)
         fun marvalCharacterClicked(position: Int)
         fun loadMore(offset: Int)
+        fun openFavorites()
 
     }
     interface Interactor{
-        fun getMarvelCharacters(offset: Int, nameStartWith: String?, listener: SingleObserver<Wrapper>)
+        fun getMarvelCharacters(offset: Int, nameStartWith: String?, listener: SingleListener<ApiWrapper>)
     }
 }
