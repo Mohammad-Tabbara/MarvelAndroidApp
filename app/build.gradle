@@ -5,6 +5,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias = MARVEL_keyAlias
+            keyPassword MARVEL_keyAliasPassword
+            storePassword MARVEL_keyStorePassword
+            storeFile file(MARVEL_keyStore)
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.opensource.marvelcharacters"
@@ -14,11 +22,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        signingConfig signingConfigs.release
     }
     buildTypes {
         debug {
             buildConfigField "String", "PUBLIC_KEY", MARVEL_API_PUBLIC_KEY
             buildConfigField "String", "PRIVATE_KEY", MARVEL_API_PRIVATE_KEY
+            applicationIdSuffix ".debug"
         }
         release {
             minifyEnabled false
@@ -46,10 +56,10 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     //dependency injection
-    api 'com.google.dagger:dagger:2.19'
-    api 'com.google.dagger:dagger-android-support:2.19'
-    kapt 'com.google.dagger:dagger-compiler:2.19'
-    kapt 'com.google.dagger:dagger-android-processor:2.19'
+    api 'com.google.dagger:dagger:2.25.2'
+    api 'com.google.dagger:dagger-android-support:2.25.2'
+    kapt 'com.google.dagger:dagger-compiler:2.25.2'
+    kapt 'com.google.dagger:dagger-android-processor:2.25.2'
 
     // RxJava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
@@ -58,13 +68,13 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 
     // standard retrofit dependency
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
-    implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.6.2'
 
     //you need this to use RxAndroid with retrofit.
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
 
     implementation "android.arch.persistence.room:runtime:$room_version"
     kapt "android.arch.persistence.room:compiler:$room_version"
