@@ -1,10 +1,13 @@
 package com.opensource.marvelcharacters.di
 
 import android.content.Context
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.opensource.marvelcharacters.Constants
+import com.opensource.marvelcharacters.domain.IAnalytics
 import com.opensource.marvelcharacters.domain.IContentManager
 import com.opensource.marvelcharacters.domain.ILocalDatabase
 import com.opensource.marvelcharacters.domain.ILogger
+import com.opensource.marvelcharacters.framework.Analytics
 import com.opensource.marvelcharacters.framework.ContentManager
 import com.opensource.marvelcharacters.framework.Logger
 import com.opensource.marvelcharacters.framework.Navigator
@@ -41,6 +44,14 @@ class AppModule {
     @Singleton
     @Provides
     fun provideLocalDatabase(context: Context):ILocalDatabase = LocalDatabase.newInstance(context)
+
+    @Singleton
+    @Provides
+    fun provideFireBaseAnalytics(context: Context):FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
+
+    @Singleton
+    @Provides
+    fun provideAnalytics(firebaseAnalytics: FirebaseAnalytics):IAnalytics = Analytics(firebaseAnalytics)
 
     @Singleton
     @Provides

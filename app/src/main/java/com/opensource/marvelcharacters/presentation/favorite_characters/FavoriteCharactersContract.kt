@@ -9,6 +9,7 @@ interface FavoriteCharactersContract{
         fun initLayout()
         fun displayFavoriteCharacters(characters: MutableList<Character>)
         fun navigateToCharacterDetailsActivity(character: Character)
+        fun didClickListCharacter(screen: String, characterName: String?)
     }
     interface Presenter {
         fun onCreate()

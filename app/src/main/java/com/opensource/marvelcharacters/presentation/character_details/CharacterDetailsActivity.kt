@@ -12,7 +12,9 @@ import com.opensource.marvelcharacters.base.BaseActivity
 import com.opensource.marvelcharacters.presentation._common.models.Character
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_character_details.*
+import kotlinx.android.synthetic.main.activity_character_details.characterImage
 import kotlinx.android.synthetic.main.activity_character_details.toolbar
+import kotlinx.android.synthetic.main.character_item.*
 import javax.inject.Inject
 
 class CharacterDetailsActivity : BaseActivity(),CharacterDetailsContract.View {
@@ -22,7 +24,7 @@ class CharacterDetailsActivity : BaseActivity(),CharacterDetailsContract.View {
     lateinit var presenter: CharacterDetailsContract.Presenter
 
     companion object{
-        private val CHARACTER = "CHARACTER"
+        private const val CHARACTER = "CHARACTER"
         fun getInstance(context: Context,character: Character): Intent {
             val intent = Intent(context, CharacterDetailsActivity::class.java)
             intent.putExtra(CHARACTER,character)
@@ -85,5 +87,13 @@ class CharacterDetailsActivity : BaseActivity(),CharacterDetailsContract.View {
 
     override fun openInWebView(url: String?) {
         navigator.navigateToWebView(this,url,false)
+    }
+
+    override fun didOpenWiki(characterName: String?) {
+        analytics.didOpenWiki(characterName)
+    }
+
+    override fun didToggleFav(toggleState: String, characterName: String?) {
+        analytics.didToggleFav(toggleState, characterName)
     }
 }

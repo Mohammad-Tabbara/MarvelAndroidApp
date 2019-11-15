@@ -1,5 +1,6 @@
 package com.opensource.marvelcharacters.presentation.favorite_characters
 
+import com.opensource.marvelcharacters.domain.IAnalyticsKeys
 import com.opensource.marvelcharacters.domain.ILogger
 import com.opensource.marvelcharacters.framework.persistance.models.FavoriteCharacter
 import com.opensource.marvelcharacters.framework.rxJava.ObserverListener
@@ -27,6 +28,7 @@ class FavoriteCharactersPresenterImpl(val view: FavoriteCharactersContract.View,
     }
 
     override fun marvalCharacterClicked(position: Int) {
+        view.didClickListCharacter(IAnalyticsKeys.FAVORITE,characters[position].name)
         view.navigateToCharacterDetailsActivity(characters[position])
     }
 

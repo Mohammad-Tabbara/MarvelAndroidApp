@@ -10,6 +10,8 @@ interface CharacterDetailsContract {
         fun initLayout(character: Character?, hasWikiPage: Boolean)
         fun openInWebView(url: String?)
         fun initFavorites(favorite: Boolean)
+        fun didOpenWiki(characterName: String?)
+        fun didToggleFav(toggleState: String, characterName: String?)
     }
     interface Presenter{
         var isFavorite: Boolean

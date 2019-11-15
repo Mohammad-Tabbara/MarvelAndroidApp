@@ -68,7 +68,7 @@ class MainActivity : BaseActivity(), MainContract.View,
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.open_favorites -> {
-                presenter.openFavorites()
+                presenter.openFavoritesButtonClick()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -140,4 +140,11 @@ class MainActivity : BaseActivity(), MainContract.View,
         navigator.navigateToFavoriteCharacters(this,false)
     }
 
+    override fun didClickListCharacter(screen: String, characterName: String?) {
+        analytics.didClickListCharacter(screen,characterName)
+    }
+
+    override fun didClickFavScreenButton() {
+        analytics.didClickFavScreenButton()
+    }
 }

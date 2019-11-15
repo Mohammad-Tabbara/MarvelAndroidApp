@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_favorite_characters.toolbar
 import javax.inject.Inject
 
 class FavoriteCharactersActivity : BaseActivity(), FavoriteCharactersContract.View, MarvelCharactersAdapter.MarvelAdapterListener {
+
     companion object{
         fun getInstance(context: Context) : Intent {
             return Intent(context,FavoriteCharactersActivity::class.java)
@@ -54,5 +55,9 @@ class FavoriteCharactersActivity : BaseActivity(), FavoriteCharactersContract.Vi
 
     override fun marvalCharacterClick(position: Int) {
         presenter.marvalCharacterClicked(position)
+    }
+
+    override fun didClickListCharacter(screen: String, characterName: String?) {
+        analytics.didClickListCharacter(screen,characterName)
     }
 }

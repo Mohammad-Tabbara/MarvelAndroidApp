@@ -1,5 +1,6 @@
 package com.opensource.marvelcharacters.presentation.main
 
+import com.opensource.marvelcharacters.domain.IAnalyticsKeys
 import com.opensource.marvelcharacters.domain.ILogger
 import com.opensource.marvelcharacters.framework.api.models.ApiWrapper
 import com.opensource.marvelcharacters.framework.rxJava.SingleListener
@@ -70,10 +71,12 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
     }
 
     override fun marvalCharacterClicked(position: Int) {
+        view.didClickListCharacter(IAnalyticsKeys.MAIN,marvelCharacters[position].name)
         view.navigateToCharacterDetails(marvelCharacters[position])
     }
 
-    override fun openFavorites() {
+    override fun openFavoritesButtonClick() {
+        view.didClickFavScreenButton()
         view.navigateToFavoriteCharactersScreen()
     }
 }

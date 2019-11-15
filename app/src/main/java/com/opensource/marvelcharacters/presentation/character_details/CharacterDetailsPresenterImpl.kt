@@ -1,5 +1,6 @@
 package com.opensource.marvelcharacters.presentation.character_details
 
+import com.opensource.marvelcharacters.domain.IAnalyticsKeys
 import com.opensource.marvelcharacters.domain.ILogger
 import com.opensource.marvelcharacters.framework.rxJava.LocalDbListener
 import com.opensource.marvelcharacters.framework.rxJava.ObserverListener
@@ -33,6 +34,7 @@ class CharacterDetailsPresenterImpl(val view: CharacterDetailsContract.View, val
     }
 
     override fun openWikiClicked() {
+        view.didOpenWiki(character?.name)
         view.openInWebView(wikiPage)
     }
 
@@ -40,12 +42,18 @@ class CharacterDetailsPresenterImpl(val view: CharacterDetailsContract.View, val
         character?.toFavoriteCharacter()?.let {
             if(!isFavorite) {
                 interactor.addToFavorites(it, object : LocalDbListener() {
+                    override fun onComplete() {
+                        view.didToggleFav(IAnalyticsKeys.TRUE,it.name)
+                    }
                     override fun onError(e: Throwable) {
                         logger.e(e)
                     }
                 })
             }else{
                 interactor.removeFromFavorites(it.id, object : LocalDbListener() {
+                    override fun onComplete() {
+                        view.didToggleFav(IAnalyticsKeys.FALSE,it.name)
+                    }
                     override fun onError(e: Throwable) {
                         logger.e(e)
                     }

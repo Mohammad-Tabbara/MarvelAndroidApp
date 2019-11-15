@@ -14,6 +14,8 @@ interface MainContract {
         fun loadMoreFailed()
         fun noInternetConnection()
         fun navigateToFavoriteCharactersScreen()
+        fun didClickListCharacter(screen: String, characterName: String?)
+        fun didClickFavScreenButton()
     }
     interface Presenter{
         fun onCreate()
@@ -21,7 +23,7 @@ interface MainContract {
         fun searchCharacters(searchText: String)
         fun marvalCharacterClicked(position: Int)
         fun loadMore(offset: Int)
-        fun openFavorites()
+        fun openFavoritesButtonClick()
 
     }
     interface Interactor{
