@@ -6,11 +6,28 @@ An App to show skills
 ## SetUp
 
 1 - Create a Marvel Account at: https://developer.marvel.com/
+
 2 - Get Private and Public Keys and place them in the build.properties file(in home directory or root project):
 ```
 MARVEL_API_PRIVATE_KEY = "PRIVATE_KEY"
 MARVEL_API_PUBLIC_KEY = "PUBLIC_KEY"
 ```
+
+3 - Set Up Project with Firebase: [Firebase Setup](https://firebase.google.com/docs/android/setup)
+
+4 - Remove From build.gradle 
+
+```
+signingConfigs {
+        release {
+            keyAlias = MARVEL_keyAlias
+            keyPassword MARVEL_keyAliasPassword
+            storePassword MARVEL_keyStorePassword
+            storeFile file(MARVEL_keyStore)
+        }
+    }
+```
+
 
 ## Implemented
 
