@@ -15,7 +15,7 @@ MARVEL_API_PUBLIC_KEY = "PUBLIC_KEY"
 
 3 - Set Up Project with Firebase: [Firebase Setup](https://firebase.google.com/docs/android/setup)
 
-4 - Remove From build.gradle 
+4 - Remove From build.gradle or add values as done in step 2
 
 ```
 signingConfigs {
