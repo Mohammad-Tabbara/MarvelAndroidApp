@@ -22,8 +22,9 @@ MARVEL_API_PUBLIC_KEY = "PUBLIC_KEY"
 - Offline Workflow
 - Character Search Feature
 - Room Database For Favorites
+- Analytics and Crashlytics Integration
+
 
 ## Future
 
-- Analytics and Crashlytics Integration
-- Unit Tests
+- Unit Tests With Travis CI
