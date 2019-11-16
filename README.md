@@ -21,9 +21,10 @@ MARVEL_API_PUBLIC_KEY = "PUBLIC_KEY"
 - Wiki WebView
 - Offline Workflow
 - Character Search Feature
+- Room Database For Favorites
+- Analytics and Crashlytics Integration
+
 
 ## Future
 
-- Room Database For Favorites
-- Analytics and Crashlytics Integration
-- Unit Tests
+- Unit Tests With Travis CI
