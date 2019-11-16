@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.marvel.characters.presentation.favorite_characters.FavoriteCharactersActivity">
+    tools:context="com.opensource.marvelcharacters.presentation.favorite_characters.FavoriteCharactersActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
