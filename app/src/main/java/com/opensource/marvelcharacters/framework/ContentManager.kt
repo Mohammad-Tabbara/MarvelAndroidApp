@@ -10,7 +10,7 @@ import com.opensource.marvelcharacters.framework.api.models.ApiWrapper
 import com.opensource.marvelcharacters.framework.persistance.models.FavoriteCharacter
 import com.opensource.marvelcharacters.framework.rxJava.LocalDbListener
 import com.opensource.marvelcharacters.framework.rxJava.ObserverListener
-import com.opensource.marvelcharacters.framework.rxJava.SingleListener
+import com.opensource.marvelcharacters.framework.rxJava.ApiListener
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 
 class  ContentManager(private val service: MarvelService, private val localDatabase: ILocalDatabase, private val apiUtils: ApiUtils): IContentManager {
 
-    override fun getMarvelCharacters(offset: Int, nameStartWith: String?, listener: SingleListener<ApiWrapper>) {
+    override fun getMarvelCharacters(offset: Int, nameStartWith: String?, listener: ApiListener<ApiWrapper>) {
         val currentTimeInMillis = apiUtils.getCurrentTimeInMillis()
         subscribe(
             service.getMarvelCharactersByPage(20,
@@ -51,7 +51,7 @@ class  ContentManager(private val service: MarvelService, private val localDatab
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(listener)
     }
-    private fun <T: Any> subscribe(single:Single<T>, listener: SingleListener<T>){
+    private fun <T: Any> subscribe(single:Single<T>, listener: ApiListener<T>){
         single.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(listener)

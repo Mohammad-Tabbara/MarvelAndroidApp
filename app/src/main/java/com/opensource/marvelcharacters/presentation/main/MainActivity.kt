@@ -86,7 +86,8 @@ class MainActivity : BaseActivity(), MainContract.View,
 
         adapter = MarvelCharactersAdapter(
             mutableListOf(),
-            this
+            this,
+            true
         )
         charactersList.adapter = adapter
         charactersList.layoutManager = LinearLayoutManager(this)
@@ -101,7 +102,8 @@ class MainActivity : BaseActivity(), MainContract.View,
     override fun displayCharacters(characters: MutableList<Character>) {
         adapter = MarvelCharactersAdapter(
             characters,
-            this
+            this,
+            true
         )
         charactersList.adapter = adapter
         charactersList.layoutManager = LinearLayoutManager(this)

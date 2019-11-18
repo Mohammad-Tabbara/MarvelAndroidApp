@@ -18,6 +18,7 @@ interface CharacterDetailsContract {
         fun onCreate(character: Character?)
         fun openWikiClicked()
         fun toggleFavorite()
+        fun onDestroy()
     }
 
     interface Interactor{

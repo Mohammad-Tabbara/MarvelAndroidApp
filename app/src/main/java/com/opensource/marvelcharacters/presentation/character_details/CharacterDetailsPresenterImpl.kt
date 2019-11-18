@@ -6,11 +6,15 @@ import com.opensource.marvelcharacters.framework.rxJava.LocalDbListener
 import com.opensource.marvelcharacters.framework.rxJava.ObserverListener
 import com.opensource.marvelcharacters.presentation._common.models.Character
 import com.opensource.marvelcharacters.presentation._common.models.toFavoriteCharacter
+import io.reactivex.disposables.CompositeDisposable
 
 class CharacterDetailsPresenterImpl(val view: CharacterDetailsContract.View, val interactor: CharacterDetailsContract.Interactor, val logger: ILogger): CharacterDetailsContract.Presenter {
 
     var character: Character? = null
     var wikiPage : String? = null
+
+    private val compositeDisposable = CompositeDisposable()
+
     override var isFavorite: Boolean = false
 
     override fun onCreate(character: Character?) {
@@ -18,7 +22,7 @@ class CharacterDetailsPresenterImpl(val view: CharacterDetailsContract.View, val
         wikiPage = character?.url
         view.initLayout(character, wikiPage != null)
         character?.id?.let {
-            interactor.inFavorites(it, object : ObserverListener<Boolean>() {
+            val inFavorites = object : ObserverListener<Boolean>() {
                 override fun onNext(exist: Boolean) {
                     isFavorite = exist
                     view.initFavorites(isFavorite)
@@ -28,7 +32,9 @@ class CharacterDetailsPresenterImpl(val view: CharacterDetailsContract.View, val
                     logger.e(e)
                 }
 
-            })
+            }
+            compositeDisposable.add(inFavorites)
+            interactor.inFavorites(it, inFavorites)
         }
 
     }
@@ -41,24 +47,34 @@ class CharacterDetailsPresenterImpl(val view: CharacterDetailsContract.View, val
     override fun toggleFavorite() {
         character?.toFavoriteCharacter()?.let {
             if(!isFavorite) {
-                interactor.addToFavorites(it, object : LocalDbListener() {
+                val addToFavorites = object : LocalDbListener() {
                     override fun onComplete() {
-                        view.didToggleFav(IAnalyticsKeys.TRUE,it.name)
+                        view.didToggleFav(IAnalyticsKeys.TRUE, it.name)
                     }
+
                     override fun onError(e: Throwable) {
                         logger.e(e)
                     }
-                })
+                }
+                compositeDisposable.add(addToFavorites)
+                interactor.addToFavorites(it, addToFavorites)
             }else{
-                interactor.removeFromFavorites(it.id, object : LocalDbListener() {
+                val removeFromFavorites = object : LocalDbListener() {
                     override fun onComplete() {
-                        view.didToggleFav(IAnalyticsKeys.FALSE,it.name)
+                        view.didToggleFav(IAnalyticsKeys.FALSE, it.name)
                     }
+
                     override fun onError(e: Throwable) {
                         logger.e(e)
                     }
-                })
+                }
+                compositeDisposable.add(removeFromFavorites)
+                interactor.removeFromFavorites(it.id, removeFromFavorites)
             }
         }
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
     }
 }

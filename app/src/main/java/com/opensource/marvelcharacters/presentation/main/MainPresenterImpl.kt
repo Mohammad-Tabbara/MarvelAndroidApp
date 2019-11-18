@@ -3,15 +3,18 @@ package com.opensource.marvelcharacters.presentation.main
 import com.opensource.marvelcharacters.domain.IAnalyticsKeys
 import com.opensource.marvelcharacters.domain.ILogger
 import com.opensource.marvelcharacters.framework.api.models.ApiWrapper
-import com.opensource.marvelcharacters.framework.rxJava.SingleListener
+import com.opensource.marvelcharacters.framework.rxJava.ApiListener
 import com.opensource.marvelcharacters.presentation._common.models.Character
 import com.opensource.marvelcharacters.presentation._common.models.Wrapper
 import com.opensource.marvelcharacters.presentation._common.models.toWrapper
+import io.reactivex.disposables.CompositeDisposable
 
 class MainPresenterImpl(val view: MainContract.View, val interactor: MainContract.Interactor, val logger: ILogger): MainContract.Presenter {
 
     private var marvelCharacters: MutableList<Character> = mutableListOf()
     private var characterNameStartWith : String? = null
+
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate() {
         view.initLayout()
@@ -19,7 +22,7 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
 
     override fun fetchCharacters() {
         view.startFetching()
-        interactor.getMarvelCharacters(0,null, object : SingleListener<ApiWrapper>(){
+        val marvelCharactersListener = object : ApiListener<ApiWrapper>(){
 
             override fun onSuccess(apiWrapper: ApiWrapper) {
                 val wrapper: Wrapper = apiWrapper.toWrapper()
@@ -31,13 +34,18 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
                 view.noInternetConnection()
                 logger.e(e)
             }
-        })
+        }
+        compositeDisposable.add(marvelCharactersListener)
+        interactor.getMarvelCharacters(0,null, marvelCharactersListener)
     }
 
     override fun searchCharacters(searchText: String) {
+        if(!compositeDisposable.isDisposed){
+            compositeDisposable.clear()
+        }
         characterNameStartWith = if(searchText.isNotEmpty()) searchText else null
         view.startFetching()
-        interactor.getMarvelCharacters(0,characterNameStartWith, object : SingleListener<ApiWrapper>(){
+        val marvelCharactersListener = object : ApiListener<ApiWrapper>(){
 
             override fun onSuccess(apiWrapper: ApiWrapper) {
                 val wrapper: Wrapper = apiWrapper.toWrapper()
@@ -49,11 +57,13 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
                 view.noInternetConnection()
                 logger.e(e)
             }
-        })
+        }
+        compositeDisposable.add(marvelCharactersListener)
+        interactor.getMarvelCharacters(0,characterNameStartWith, marvelCharactersListener)
     }
 
     override fun loadMore(offset: Int) {
-        interactor.getMarvelCharacters(offset, characterNameStartWith, object : SingleListener<ApiWrapper>(){
+        val marvelCharactersListener = object : ApiListener<ApiWrapper>(){
 
             override fun onSuccess(apiWrapper: ApiWrapper) {
                 val wrapper: Wrapper = apiWrapper.toWrapper()
@@ -67,7 +77,9 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
                 view.loadMoreFailed()
                 logger.e(e)
             }
-        })
+        }
+        compositeDisposable.add(marvelCharactersListener)
+        interactor.getMarvelCharacters(offset, characterNameStartWith, marvelCharactersListener)
     }
 
     override fun marvalCharacterClicked(position: Int) {

@@ -12,8 +12,9 @@ import com.opensource.marvelcharacters.presentation._common.models.Character
 import com.opensource.marvelcharacters.presentation._common.custom.PaginationListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.character_item.view.*
+import java.lang.Exception
 
-class MarvelCharactersAdapter(private val characters: MutableList<Character>, private val marvelAdapterListener: MarvelAdapterListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MarvelCharactersAdapter(private val characters: MutableList<Character>, private val marvelAdapterListener: MarvelAdapterListener, private val isPagingEnabled: Boolean): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     enum class CellName{
         Character,Loading;
@@ -57,7 +58,16 @@ class MarvelCharactersAdapter(private val characters: MutableList<Character>, pr
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-        recyclerView.addOnScrollListener(paginationListener)
+        if(isPagingEnabled) {
+            recyclerView.addOnScrollListener(paginationListener)
+        }
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        if(isPagingEnabled) {
+            recyclerView.removeOnScrollListener(paginationListener)
+        }
     }
 
     fun updateData() {

@@ -2,7 +2,7 @@ package com.opensource.marvelcharacters.presentation.main
 
 import com.opensource.marvelcharacters.presentation._common.models.Character
 import com.opensource.marvelcharacters.framework.api.models.ApiWrapper
-import com.opensource.marvelcharacters.framework.rxJava.SingleListener
+import com.opensource.marvelcharacters.framework.rxJava.ApiListener
 
 interface MainContract {
     interface View{
@@ -27,6 +27,6 @@ interface MainContract {
 
     }
     interface Interactor{
-        fun getMarvelCharacters(offset: Int, nameStartWith: String?, listener: SingleListener<ApiWrapper>)
+        fun getMarvelCharacters(offset: Int, nameStartWith: String?, listener: ApiListener<ApiWrapper>)
     }
 }

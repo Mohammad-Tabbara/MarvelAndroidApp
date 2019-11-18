@@ -9,11 +9,11 @@ class ApiUtils{
     }
 
     fun getMd5Hash(input: String): String {
-        val MD5 = "MD5"
+        val md5 = "MD5"
         try {
             // Create MD5 Hash
             val digest = java.security.MessageDigest
-                .getInstance(MD5)
+                .getInstance(md5)
             digest.update(input.toByteArray())
             val messageDigest = digest.digest()
 
