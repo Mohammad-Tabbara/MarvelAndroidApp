@@ -34,6 +34,10 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
                 view.noInternetConnection()
                 logger.e(e)
             }
+
+            override fun onNoNetwork() {
+                view.noInternetConnection()
+            }
         }
         compositeDisposable.add(marvelCharactersListener)
         interactor.getMarvelCharacters(0,null, marvelCharactersListener)
@@ -57,6 +61,10 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
                 view.noInternetConnection()
                 logger.e(e)
             }
+
+            override fun onNoNetwork() {
+                view.noInternetConnection()
+            }
         }
         compositeDisposable.add(marvelCharactersListener)
         interactor.getMarvelCharacters(0,characterNameStartWith, marvelCharactersListener)
@@ -76,6 +84,10 @@ class MainPresenterImpl(val view: MainContract.View, val interactor: MainContrac
             override fun onError(e: Throwable) {
                 view.loadMoreFailed()
                 logger.e(e)
+            }
+
+            override fun onNoNetwork() {
+                view.loadMoreFailed()
             }
         }
         compositeDisposable.add(marvelCharactersListener)

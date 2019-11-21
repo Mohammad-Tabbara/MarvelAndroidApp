@@ -52,9 +52,13 @@ class  ContentManager(private val service: MarvelService, private val localDatab
             .subscribe(listener)
     }
     private fun <T: Any> subscribe(single:Single<T>, listener: ApiListener<T>){
-        single.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(listener)
+        if(apiUtils.isNetworkAvailable()) {
+            single.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(listener)
+        }else{
+            listener.onNoNetwork()
+        }
     }
 
     private fun <T: Any> subscribe(observable: Observable<T>, listener: ObserverListener<T>){

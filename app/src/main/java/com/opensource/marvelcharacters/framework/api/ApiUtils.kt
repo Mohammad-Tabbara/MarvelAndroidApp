@@ -1,9 +1,13 @@
 package com.opensource.marvelcharacters.framework.api
 
+import android.content.Context
+import android.net.ConnectivityManager
+import androidx.core.content.ContextCompat.getSystemService
 import java.security.NoSuchAlgorithmException
 import java.util.*
 
-class ApiUtils{
+
+class ApiUtils(val context: Context){
     fun getCurrentTimeInMillis(): Long {
         return Calendar.getInstance().timeInMillis
     }
@@ -32,6 +36,13 @@ class ApiUtils{
         }
 
         return ""
+    }
+
+    fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+        val activeNetworkInfo = connectivityManager?.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 
 }

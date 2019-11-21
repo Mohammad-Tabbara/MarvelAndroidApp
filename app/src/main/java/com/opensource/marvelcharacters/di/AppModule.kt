@@ -36,7 +36,7 @@ class AppModule {
 
     @Reusable
     @Provides
-    fun provideApiUtils():ApiUtils = ApiUtils()
+    fun provideApiUtils(context: Context):ApiUtils = ApiUtils(context)
 
     @Reusable
     @Provides
