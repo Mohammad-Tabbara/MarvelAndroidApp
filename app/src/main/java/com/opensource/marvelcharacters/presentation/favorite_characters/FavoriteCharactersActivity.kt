@@ -31,6 +31,11 @@ class FavoriteCharactersActivity : BaseActivity(), FavoriteCharactersContract.Vi
         presenter.onCreate()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
+    }
+
     override fun initLayout() {
         setSupportActionBar(toolbar)
         supportActionBar?.apply {
@@ -42,7 +47,8 @@ class FavoriteCharactersActivity : BaseActivity(), FavoriteCharactersContract.Vi
     override fun displayFavoriteCharacters(characters: MutableList<Character>) {
         adapter = MarvelCharactersAdapter(
             characters,
-            this
+            this,
+            false
         )
         favoriteCharactersList.adapter = adapter
         favoriteCharactersList.layoutManager = LinearLayoutManager(this)

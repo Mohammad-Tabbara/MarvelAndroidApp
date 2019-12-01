@@ -38,6 +38,11 @@ class CharacterDetailsActivity : BaseActivity(),CharacterDetailsContract.View {
         presenter.onCreate(intent.getParcelableExtra(CHARACTER))
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.character,menu)
         return super.onCreateOptionsMenu(menu)
