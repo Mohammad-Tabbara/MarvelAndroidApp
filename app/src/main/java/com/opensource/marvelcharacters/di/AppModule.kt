@@ -16,6 +16,7 @@ import com.opensource.marvelcharacters.framework.api.MarvelService
 import com.opensource.marvelcharacters.framework.persistance.LocalDatabase
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -23,7 +24,7 @@ import javax.inject.Singleton
 
 @Module(includes = [BaseModule::class])
 class AppModule {
-    @Singleton
+    @Reusable
     @Provides
     fun provideMarvelApi(): MarvelService {
         return Retrofit.Builder()
@@ -33,17 +34,18 @@ class AppModule {
             .build().create(MarvelService::class.java)
     }
 
+    @Reusable
+    @Provides
+    fun provideApiUtils(context: Context):ApiUtils = ApiUtils(context)
+
+    @Reusable
+    @Provides
+    fun provideLocalDatabase(context: Context):ILocalDatabase = LocalDatabase.newInstance(context)
+
     @Singleton
     @Provides
     fun provideNavigator(): Navigator = Navigator()
 
-    @Singleton
-    @Provides
-    fun provideApiUtils():ApiUtils = ApiUtils()
-
-    @Singleton
-    @Provides
-    fun provideLocalDatabase(context: Context):ILocalDatabase = LocalDatabase.newInstance(context)
 
     @Singleton
     @Provides

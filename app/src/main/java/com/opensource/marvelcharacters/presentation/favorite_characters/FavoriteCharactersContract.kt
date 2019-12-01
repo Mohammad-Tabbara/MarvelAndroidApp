@@ -13,6 +13,7 @@ interface FavoriteCharactersContract{
     }
     interface Presenter {
         fun onCreate()
+        fun onDestroy()
         fun marvalCharacterClicked(position: Int)
     }
     interface Interactor{
