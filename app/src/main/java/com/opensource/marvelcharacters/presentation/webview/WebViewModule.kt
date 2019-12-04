@@ -6,19 +6,18 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
-@Module
+@Module(includes = [WebViewProviders::class])
 abstract class WebViewModule {
 
     @ViewScope
     @Binds
     abstract fun bindView(mainActivity: WebViewActivity): WebViewContract.View
 
-    @Module
-    companion object{
-        @ViewScope
-        @Provides
-        @JvmStatic
-        fun providePresenter(view: WebViewContract.View, logger: ILogger): WebViewContract.Presenter = WebViewPresenterImpl(view,logger)
-    }
+}
 
+@Module
+object WebViewProviders{
+    @ViewScope
+    @Provides
+    fun providePresenter(view: WebViewContract.View, logger: ILogger): WebViewContract.Presenter = WebViewPresenterImpl(view,logger)
 }

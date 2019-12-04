@@ -7,25 +7,23 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
-@Module
+@Module(includes = [CharacterDetailsProviders::class])
 abstract class CharacterDetailsModule {
 
     @ViewScope
     @Binds
     abstract fun bindView(mainActivity: CharacterDetailsActivity): CharacterDetailsContract.View
 
-    @Module
-    companion object{
-        @ViewScope
-        @Provides
-        @JvmStatic
-        fun providePresenter(view: CharacterDetailsContract.View, interactor: CharacterDetailsContract.Interactor, logger: ILogger): CharacterDetailsContract.Presenter = CharacterDetailsPresenterImpl(view,interactor,logger)
+}
 
-        @ViewScope
-        @Provides
-        @JvmStatic
-        fun provideInteractor(contentManager: IContentManager): CharacterDetailsContract.Interactor = CharacterDetailsInteractor(contentManager)
+@Module
+object CharacterDetailsProviders{
+    @ViewScope
+    @Provides
+    fun providePresenter(view: CharacterDetailsContract.View, interactor: CharacterDetailsContract.Interactor, logger: ILogger): CharacterDetailsContract.Presenter = CharacterDetailsPresenterImpl(view,interactor,logger)
 
-    }
+    @ViewScope
+    @Provides
+    fun provideInteractor(contentManager: IContentManager): CharacterDetailsContract.Interactor = CharacterDetailsInteractor(contentManager)
 
 }

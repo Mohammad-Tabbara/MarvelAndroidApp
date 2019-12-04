@@ -7,24 +7,23 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
-@Module
+@Module(includes = [FavoriteCharactersProviders::class])
 abstract class FavoriteCharactersModule {
 
     @ViewScope
     @Binds
     abstract fun bindView(activity: FavoriteCharactersActivity): FavoriteCharactersContract.View
 
-    @Module
-    companion object{
-        @ViewScope
-        @Provides
-        @JvmStatic
-        fun providePresenter(view: FavoriteCharactersContract.View,interactor: FavoriteCharactersContract.Interactor,logger: ILogger): FavoriteCharactersContract.Presenter = FavoriteCharactersPresenterImpl(view,interactor,logger)
+}
 
-        @ViewScope
-        @Provides
-        @JvmStatic
-        fun provideInteractor(contentManager: IContentManager): FavoriteCharactersContract.Interactor = FavoriteCharactersInteractor(contentManager)
+@Module
+object FavoriteCharactersProviders{
+    @ViewScope
+    @Provides
+    fun providePresenter(view: FavoriteCharactersContract.View,interactor: FavoriteCharactersContract.Interactor,logger: ILogger): FavoriteCharactersContract.Presenter = FavoriteCharactersPresenterImpl(view,interactor,logger)
 
-    }
+    @ViewScope
+    @Provides
+    fun provideInteractor(contentManager: IContentManager): FavoriteCharactersContract.Interactor = FavoriteCharactersInteractor(contentManager)
+
 }
